@@ -84,6 +84,7 @@ namespace HumanResources
             dgvEmployees.Columns[nameof(Employee.ReleaseDate)].HeaderText = "Data Zwolnienia";
             dgvEmployees.Columns["Department"].HeaderText = "Department";
 
+            dgvEmployees.Columns[9].Visible = false;
 
             /*
             dgvEmployees.Columns[0].HeaderText = "Id";
@@ -187,6 +188,11 @@ namespace HumanResources
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            Edit();
+        }
+
+        private void Edit()
+        {
             // sprawdzamy, czy jakiś wiersz został zaznaczony
             if (dgvEmployees.SelectedRows.Count == 0)
             {
@@ -199,7 +205,7 @@ namespace HumanResources
             int id = Convert.ToInt32(dgvEmployees.SelectedRows[0].Cells[0].Value);
             int rowIndex = dgvEmployees.CurrentCell.RowIndex;
             var addEditEmployee = new AddEditEmployee(id);
-            
+
             addEditEmployee.FormClosing += AddEditEmployee_FormClosing;
             addEditEmployee.ShowDialog();
             addEditEmployee.FormClosing -= AddEditEmployee_FormClosing;
@@ -234,6 +240,11 @@ namespace HumanResources
         private void cboDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshList();
+        }
+
+        private void dgvEmployees_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Edit();
         }
     }
 }

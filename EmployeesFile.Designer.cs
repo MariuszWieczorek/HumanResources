@@ -74,6 +74,7 @@ namespace HumanResources
             this.dgvEmployees.RowHeadersWidth = 62;
             this.dgvEmployees.Size = new System.Drawing.Size(2362, 1185);
             this.dgvEmployees.TabIndex = 2;
+            this.dgvEmployees.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmployees_CellContentClick);
             // 
             // chkReleased
             // 
