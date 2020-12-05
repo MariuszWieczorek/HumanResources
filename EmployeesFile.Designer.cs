@@ -33,6 +33,8 @@ namespace HumanResources
             this.btnEdit = new System.Windows.Forms.Button();
             this.dgvEmployees = new System.Windows.Forms.DataGridView();
             this.chkReleased = new System.Windows.Forms.CheckBox();
+            this.cboDepartment = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).BeginInit();
             this.SuspendLayout();
             // 
@@ -40,9 +42,10 @@ namespace HumanResources
             // 
             this.btnAdd.BackColor = System.Drawing.Color.PaleGreen;
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnAdd.Location = new System.Drawing.Point(98, 32);
+            this.btnAdd.Location = new System.Drawing.Point(147, 49);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(107, 32);
+            this.btnAdd.Size = new System.Drawing.Size(160, 49);
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "Dodaj";
             this.btnAdd.UseVisualStyleBackColor = false;
@@ -52,9 +55,10 @@ namespace HumanResources
             // 
             this.btnEdit.BackColor = System.Drawing.Color.Khaki;
             this.btnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnEdit.Location = new System.Drawing.Point(214, 31);
+            this.btnEdit.Location = new System.Drawing.Point(321, 48);
+            this.btnEdit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(107, 32);
+            this.btnEdit.Size = new System.Drawing.Size(160, 49);
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Text = "Edycja";
             this.btnEdit.UseVisualStyleBackColor = false;
@@ -64,33 +68,61 @@ namespace HumanResources
             // 
             this.dgvEmployees.BackgroundColor = System.Drawing.Color.White;
             this.dgvEmployees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEmployees.Location = new System.Drawing.Point(25, 92);
+            this.dgvEmployees.Location = new System.Drawing.Point(38, 142);
+            this.dgvEmployees.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dgvEmployees.Name = "dgvEmployees";
-            this.dgvEmployees.Size = new System.Drawing.Size(1575, 770);
+            this.dgvEmployees.RowHeadersWidth = 62;
+            this.dgvEmployees.Size = new System.Drawing.Size(2362, 1185);
             this.dgvEmployees.TabIndex = 2;
             // 
             // chkReleased
             // 
             this.chkReleased.AutoSize = true;
             this.chkReleased.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chkReleased.Location = new System.Drawing.Point(435, 36);
+            this.chkReleased.Location = new System.Drawing.Point(661, 56);
+            this.chkReleased.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkReleased.Name = "chkReleased";
-            this.chkReleased.Size = new System.Drawing.Size(376, 28);
+            this.chkReleased.Size = new System.Drawing.Size(573, 37);
             this.chkReleased.TabIndex = 19;
             this.chkReleased.Text = "pokaż również pracowników zwolnionych";
             this.chkReleased.UseVisualStyleBackColor = true;
             this.chkReleased.CheckedChanged += new System.EventHandler(this.chkReleased_CheckedChanged);
             // 
+            // cboDepartment
+            // 
+            this.cboDepartment.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cboDepartment.FormattingEnabled = true;
+            this.cboDepartment.Location = new System.Drawing.Point(1584, 56);
+            this.cboDepartment.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cboDepartment.Name = "cboDepartment";
+            this.cboDepartment.Size = new System.Drawing.Size(469, 41);
+            this.cboDepartment.TabIndex = 20;
+            this.cboDepartment.SelectedIndexChanged += new System.EventHandler(this.cboDepartment_SelectedIndexChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label7.Location = new System.Drawing.Point(1451, 65);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(76, 33);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "dział";
+            // 
             // EmployeesFile
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1622, 884);
+            this.ClientSize = new System.Drawing.Size(2433, 1360);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.cboDepartment);
             this.Controls.Add(this.chkReleased);
             this.Controls.Add(this.dgvEmployees);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnAdd);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "EmployeesFile";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).EndInit();
@@ -105,6 +137,8 @@ namespace HumanResources
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.DataGridView dgvEmployees;
         private System.Windows.Forms.CheckBox chkReleased;
+        private System.Windows.Forms.ComboBox cboDepartment;
+        private System.Windows.Forms.Label label7;
     }
 }
 

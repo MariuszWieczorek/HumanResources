@@ -29,10 +29,31 @@ namespace HumanResources
         {
             InitializeComponent();
             Text = "";
+
+            var ListOfDepartments = new List<Department>();
+            ListOfDepartments.Add(new Department { Id = -1, Name = "All" });
+
+            // Groups.Departments.CopyTo(ListOfDepartments);
+
+            foreach(var x in Groups.Departments)
+            {
+                ListOfDepartments.Add(x);
+            }
+
+            ListOfDepartments = ListOfDepartments.OrderBy(x => x.Id).ToList();
+
+            cboDepartment.DataSource = ListOfDepartments;
+            cboDepartment.DisplayMember = "Name";
+            cboDepartment.ValueMember = "Id";
+            cboDepartment.SelectedIndex = 0;
+
+
             //PopulateEmployee();
             RefreshList();
             SetDgvProperities();
             SetDgvColumnHeader();
+
+
 
 
         }
@@ -51,8 +72,20 @@ namespace HumanResources
             dgvEmployees.Columns[nameof(Employee.Salary)].DisplayIndex = 5;
             dgvEmployees.Columns[nameof(Employee.Released)].DisplayIndex = 6;
             dgvEmployees.Columns[nameof(Employee.ReleaseDate)].DisplayIndex = 7;
-            
+            dgvEmployees.Columns["Department"].DisplayIndex = 8;
 
+            dgvEmployees.Columns[nameof(Employee.Id)].HeaderText = "Id";
+            dgvEmployees.Columns[nameof(Employee.Number)].HeaderText = "Numer";
+            dgvEmployees.Columns[nameof(Employee.FirstName)].HeaderText = "Imię";
+            dgvEmployees.Columns[nameof(Employee.LastName)].HeaderText = "Nazwisko";
+            dgvEmployees.Columns[nameof(Employee.HireDate)].HeaderText = "Data Zatrudnienia";
+            dgvEmployees.Columns[nameof(Employee.Salary)].HeaderText = "Wynagrodzenie";
+            dgvEmployees.Columns[nameof(Employee.Released)].HeaderText = "Zwolniony";
+            dgvEmployees.Columns[nameof(Employee.ReleaseDate)].HeaderText = "Data Zwolnienia";
+            dgvEmployees.Columns["Department"].HeaderText = "Department";
+
+
+            /*
             dgvEmployees.Columns[0].HeaderText = "Id";
             dgvEmployees.Columns[1].HeaderText = "Numer";
             dgvEmployees.Columns[2].HeaderText = "Imię";
@@ -60,8 +93,10 @@ namespace HumanResources
             dgvEmployees.Columns[4].HeaderText = "Data Zatrudnienia";
             dgvEmployees.Columns[5].HeaderText = "Wynagrodzenie";
             dgvEmployees.Columns[6].HeaderText = "Zwolniony";
-            dgvEmployees.Columns[7].HeaderText = "Data Zwolnienia";
-            
+            dgvEmployees.Columns[7]
+            dgvEmployees.Columns[8]
+            */
+
 
         }
 
@@ -83,7 +118,7 @@ namespace HumanResources
             //var selectedGroupId = (cboGroupOfStudent.SelectedItem as GroupOfStudent).Id;
 
 
-            var studentsQueryable = employees
+            var employeesQueryable2 = employees
                 .OrderBy(x => x.Id)
                 .Select(x => new
                 {
@@ -95,38 +130,42 @@ namespace HumanResources
                     Salary = x.Salary,
                     Released = x.Released,
                     ReleaseDate = x.ReleaseDate,
+                    DepartmentId = x.DepartmentId,
                 }).AsQueryable();
 
-            /*
-            var studentsQueryable2 = students
-            .Join(Groups.GroupOfStudents, left => left.GroupOfStudentsId, right => right.Id,
-               (left, right) => new { StudentColumns = left, GroupsColumns = right })
+            
+            var employeesQueryable = employees
+            .Join(Groups.Departments, left => left.DepartmentId, right => right.Id,
+               (left, right) => new { EmployeeColumns = left, DepartmentsColumns = right })
             .Select(x => new
             {
-                Id = x.StudentColumns.Id,
-                FirstName = x.StudentColumns.FirstName,
-                Math = x.StudentColumns.Math,
-                Physics = x.StudentColumns.Physics,
-                Technology = x.StudentColumns.Technology,
-                PolishLang = x.StudentColumns.PolishLang,
-                ForeignLang = x.StudentColumns.ForeignLang,
-                Comments = x.StudentColumns.Comments,
-                AdditionalClasses = x.StudentColumns.AdditionalClasses,
-                GroupOfStudentsId = x.StudentColumns.GroupOfStudentsId,
-                GroupOfStudents = x.GroupsColumns.Nazwa,
-
+                Id = x.EmployeeColumns.Id,
+                Number = x.EmployeeColumns.Number,
+                FirstName = x.EmployeeColumns.FirstName,
+                LastName = x.EmployeeColumns.LastName,
+                HireDate = x.EmployeeColumns.HireDate,
+                Salary = x.EmployeeColumns.Salary,
+                Released = x.EmployeeColumns.Released,
+                ReleaseDate = x.EmployeeColumns.ReleaseDate,
+                Department  = x.DepartmentsColumns.Name,
+                DepartmentId = x.EmployeeColumns.DepartmentId,
             }).AsQueryable();
 
             
-            */
+            
 
             if (!chkReleased.Checked)
             {
-                studentsQueryable = studentsQueryable.Where(x => x.Released == false);
+                employeesQueryable = employeesQueryable.Where(x => x.Released == false);
             }
-            
 
-            dgvEmployees.DataSource = studentsQueryable.ToList();
+            var selectedGroupId = (cboDepartment.SelectedItem as Department).Id;
+            if (selectedGroupId >= 0)
+            {
+                employeesQueryable = employeesQueryable.Where(x => x.DepartmentId == selectedGroupId);
+            }
+
+            dgvEmployees.DataSource = employeesQueryable.OrderBy(x=>x.Id).ToList();
         }
 
 
@@ -137,10 +176,10 @@ namespace HumanResources
         {
             var employees = new List<Employee>();
             // w tym przypadku może też być z nawiasami po new Student() lub bez 
-            employees.Add(new Employee { Id = 1, FirstName = "Jan", LastName = "Kowalski", HireDate = DateTime.Parse("2001-01-01"), Salary = 7500.00M,  Address = new Address { City = "Szczecin" } });
-            employees.Add(new Employee { Id = 2, FirstName = "Jan", LastName = "Nowak", HireDate = DateTime.Parse("2001-01-01"), Salary = 4500.00M, });
-            employees.Add(new Employee { Id = 3, FirstName = "Alfred", LastName = "Kowalski", HireDate = DateTime.Parse("2020-01-01"), Salary = 3200.00M, });
-            employees.Add(new Employee { Id = 4, FirstName = "Joanna", LastName = "Bartkowiak", HireDate = DateTime.Parse("1995-01-01"), Salary = 6200.00M, });
+            employees.Add(new Employee { Id = 1, Number = "000011", FirstName = "Jan", LastName = "Kowalski", HireDate = DateTime.Parse("2001-01-01"), Salary = 7500.00M,  Address = new Address { City = "Szczecin" } });
+            employees.Add(new Employee { Id = 2, Number = "002201", FirstName = "Jan", LastName = "Nowak", HireDate = DateTime.Parse("2001-01-01"), Salary = 4500.00M, });
+            employees.Add(new Employee { Id = 3, Number = "002301", FirstName = "Alfred", LastName = "Kowalski", HireDate = DateTime.Parse("2020-01-01"), Salary = 3200.00M, });
+            employees.Add(new Employee { Id = 4, Number = "002009", FirstName = "Joanna", LastName = "Bartkowiak", HireDate = DateTime.Parse("1995-01-01"), Salary = 6200.00M, });
             _fileHelper.SerializeToFile(employees);
         }
         
@@ -188,6 +227,11 @@ namespace HumanResources
         }
 
         private void chkReleased_CheckedChanged(object sender, EventArgs e)
+        {
+            RefreshList();
+        }
+
+        private void cboDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshList();
         }

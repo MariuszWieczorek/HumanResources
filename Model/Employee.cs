@@ -15,6 +15,7 @@ namespace HumanResources.Model
         public DateTime ReleaseDate { get; set; }
         public decimal Salary { get; set; }
         public int DepartmentId { get; set; }
+        public string PathToPhoto { get; set; }
 
         public override string GetInfo()
         {
