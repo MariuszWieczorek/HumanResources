@@ -48,7 +48,7 @@ namespace HumanResources
             cboDepartment.SelectedIndex = 0;
 
 
-            //PopulateEmployee();
+            PopulateEmployee();
             RefreshList();
             SetDgvProperities();
             SetDgvColumnHeader();
@@ -82,9 +82,14 @@ namespace HumanResources
             dgvEmployees.Columns[nameof(Employee.Salary)].HeaderText = "Wynagrodzenie";
             dgvEmployees.Columns[nameof(Employee.Released)].HeaderText = "Zwolniony";
             dgvEmployees.Columns[nameof(Employee.ReleaseDate)].HeaderText = "Data Zwolnienia";
-            dgvEmployees.Columns["Department"].HeaderText = "Department";
-
+            dgvEmployees.Columns["Department"].HeaderText = "Dział";
+            
             dgvEmployees.Columns[9].Visible = false;
+
+
+            dgvEmployees.Columns[nameof(Employee.FirstName)].DefaultCellStyle.Font = new Font("Arial", 14, FontStyle.Bold, GraphicsUnit.Pixel);
+            dgvEmployees.Columns[nameof(Employee.LastName)].DefaultCellStyle.Font = new Font("Arial", 14, FontStyle.Bold, GraphicsUnit.Pixel);
+            dgvEmployees.Columns[nameof(Employee.Number)].DefaultCellStyle.Font = new Font("Arial", 14, FontStyle.Bold, GraphicsUnit.Pixel);
 
             /*
             dgvEmployees.Columns[0].HeaderText = "Id";
@@ -116,9 +121,7 @@ namespace HumanResources
         private void RefreshList()
         {
             var employees = _fileHelper.DeserializeFromFile();
-            //var selectedGroupId = (cboGroupOfStudent.SelectedItem as GroupOfStudent).Id;
-
-
+            
             var employeesQueryable2 = employees
                 .OrderBy(x => x.Id)
                 .Select(x => new
@@ -152,8 +155,6 @@ namespace HumanResources
                 DepartmentId = x.EmployeeColumns.DepartmentId,
             }).AsQueryable();
 
-            
-            
 
             if (!chkReleased.Checked)
             {

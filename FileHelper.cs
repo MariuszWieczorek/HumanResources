@@ -21,13 +21,33 @@ namespace HumanResources
     public class FileHelper<T> where T : new()
     {
         private string _filePath;
+        private int _JsonOrXml = 2;     // 2 - Json   1 - Xml
 
         public FileHelper(string filePath)
         {
             _filePath = filePath;
         }
 
-        public void SerializeToFile(T students)
+        public void SerializeToFile(T list)
+        {
+            if (_JsonOrXml == 1)
+                SerializeToFileXml(list);
+
+            if (_JsonOrXml == 2)
+                SerializeToFileJson(list);
+        }
+
+        public T DeserializeFromFile()
+        {
+            if (_JsonOrXml == 1)
+                return DeserializeFromFileXml();
+            else if (_JsonOrXml == 2)
+                return DeserializeFromFileJson();
+            else
+                return new T();
+        }
+
+        public void SerializeToFileXml(T students)
         {
             // Zapisujemy Listę studentów do pliku wersja z użyciem USING
             // przekazujemy listę obiektów typu Student
@@ -47,64 +67,35 @@ namespace HumanResources
             }
         }
 
+        /// <summary>
+        /// Serializacja do formatu JSON
+        /// </summary>
         public void SerializeToFileJson(T list)
         {
-            // Zapisujemy Listę studentów do pliku wersja z użyciem USING
-            // przekazujemy listę obiektów typu Student
-            // typeof() - zwróci typ podczas kompilacji
-            // The typeof is an operator keyword which is used to get a type at the compile-time.
-
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.Converters.Add(new JavaScriptDateTimeConverter());
-            serializer.NullValueHandling = NullValueHandling.Ignore;
-            StreamWriter streamWriter = null;
-
-            using (streamWriter = new StreamWriter(_filePath+"x"))
-            using (JsonWriter writer = new JsonTextWriter(streamWriter))
-            {
-                serializer.Serialize(writer, list);
-            }
-
+            var json = JsonConvert.SerializeObject(list);//serializacja
+            File.WriteAllText($"{_filePath}", json);  //zapis do pliku
         }
 
         /// <summary>
-        /// Odczytuje Listę obiektów z pliku w tym przypadku z XML'a 
+        /// Deserializacja z formatu JSON
         /// </summary>
         /// <returns></returns>
         public T DeserializeFromFileJson()
         {
-            if (!File.Exists(_filePath+'x'))
+            if (!File.Exists(_filePath))
             {
                 return new T();
             }
 
-            //JsonSerializer serializer = new JsonSerializer();
-            //serializer.Converters.Add(new JavaScriptDateTimeConverter());
-            // serializer.NullValueHandling = NullValueHandling.Ignore;
-
-            var list = (T)JsonConvert.DeserializeObject<T>(_filePath);
-            return list;
-
-            /*
-            using (var streamReader = new StreamReader(_filePath))
-            {
-                // stream jest to klasa, która zapewnia nam transfer bajtów
-                // Deserializer zwraca typ obiekt, musimy go rzutować na listę studentów
-                //var listx = (T)serializer.Deserialize(streamReader);
-                
-                streamReader.Close();
-                return list;
-            }
-            */
-
+            var json = File.ReadAllText($"{_filePath}"); //odczyt z pliku
+            return JsonConvert.DeserializeObject<T>(json);  //deserializacja
         }
-  
 
         /// <summary>
         /// Odczytuje Listę obiektów z pliku w tym przypadku z XML'a 
         /// </summary>
         /// <returns></returns>
-        public T DeserializeFromFile()
+        public T DeserializeFromFileXml()
         {
             if (!File.Exists(_filePath))
             {

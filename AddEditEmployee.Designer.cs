@@ -72,7 +72,7 @@ namespace HumanResources
             this.tbId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbId.Name = "tbId";
             this.tbId.Size = new System.Drawing.Size(448, 40);
-            this.tbId.TabIndex = 1;
+            this.tbId.TabIndex = 0;
             // 
             // tbNumber
             // 
@@ -81,7 +81,7 @@ namespace HumanResources
             this.tbNumber.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbNumber.Name = "tbNumber";
             this.tbNumber.Size = new System.Drawing.Size(448, 40);
-            this.tbNumber.TabIndex = 3;
+            this.tbNumber.TabIndex = 1;
             // 
             // label2
             // 
@@ -101,7 +101,7 @@ namespace HumanResources
             this.tbFirstName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbFirstName.Name = "tbFirstName";
             this.tbFirstName.Size = new System.Drawing.Size(448, 40);
-            this.tbFirstName.TabIndex = 5;
+            this.tbFirstName.TabIndex = 2;
             // 
             // label3
             // 
@@ -121,7 +121,7 @@ namespace HumanResources
             this.tbLastName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbLastName.Name = "tbLastName";
             this.tbLastName.Size = new System.Drawing.Size(448, 40);
-            this.tbLastName.TabIndex = 7;
+            this.tbLastName.TabIndex = 3;
             // 
             // label4
             // 
@@ -152,7 +152,7 @@ namespace HumanResources
             this.dtpHireDate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dtpHireDate.Name = "dtpHireDate";
             this.dtpHireDate.Size = new System.Drawing.Size(514, 40);
-            this.dtpHireDate.TabIndex = 10;
+            this.dtpHireDate.TabIndex = 5;
             // 
             // label6
             // 
@@ -183,7 +183,7 @@ namespace HumanResources
             this.dtpReleaseDate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dtpReleaseDate.Name = "dtpReleaseDate";
             this.dtpReleaseDate.Size = new System.Drawing.Size(514, 40);
-            this.dtpReleaseDate.TabIndex = 12;
+            this.dtpReleaseDate.TabIndex = 8;
             // 
             // picPhoto
             // 
@@ -226,7 +226,7 @@ namespace HumanResources
             this.chkReleased.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkReleased.Name = "chkReleased";
             this.chkReleased.Size = new System.Drawing.Size(310, 37);
-            this.chkReleased.TabIndex = 18;
+            this.chkReleased.TabIndex = 7;
             this.chkReleased.Text = "pracownik zwolniony";
             this.chkReleased.UseVisualStyleBackColor = true;
             this.chkReleased.CheckedChanged += new System.EventHandler(this.chkReleased_CheckedChanged);
@@ -239,7 +239,7 @@ namespace HumanResources
             this.cboDepartment.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cboDepartment.Name = "cboDepartment";
             this.cboDepartment.Size = new System.Drawing.Size(469, 41);
-            this.cboDepartment.TabIndex = 19;
+            this.cboDepartment.TabIndex = 6;
             // 
             // label7
             // 
@@ -259,7 +259,7 @@ namespace HumanResources
             this.tbSalary.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbSalary.Name = "tbSalary";
             this.tbSalary.Size = new System.Drawing.Size(448, 40);
-            this.tbSalary.TabIndex = 21;
+            this.tbSalary.TabIndex = 4;
             // 
             // btnPhoto
             // 

@@ -80,8 +80,9 @@ namespace HumanResources
             chkReleased.Checked = _currentEmployee.Released;
             _patchToPhoto = _currentEmployee.PathToPhoto;
 
-            if (_currentEmployee.ReleaseDate != new DateTime(1, 1, 1))
-                dtpReleaseDate.Value = _currentEmployee.ReleaseDate;
+              //  (_currentEmployee.ReleaseDate != new DateTime(1, 1, 1))
+            if (_currentEmployee.ReleaseDate.HasValue)
+                dtpReleaseDate.Value = (DateTime)_currentEmployee.ReleaseDate;
             else
                 dtpReleaseDate.Value = DateTime.Now;
 
