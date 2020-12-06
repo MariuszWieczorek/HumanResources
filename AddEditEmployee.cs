@@ -118,13 +118,15 @@ namespace HumanResources
         /// <param name="employees"></param>
         private void AddNewEmployeeToList(List<Employee> employees)
         {
+
+            var hireDateWithoutTime = new DateTime(dtpHireDate.Value.Year,dtpHireDate.Value.Month,dtpHireDate.Value.Day);
             var employee = new Employee
             {
                 Id = _currentEmployeeId,
                 Number = tbNumber.Text,
                 FirstName = tbFirstName.Text,
                 LastName = tbLastName.Text,
-                HireDate = dtpHireDate.Value,
+                HireDate = hireDateWithoutTime,
                 Salary = Decimal.Parse(tbSalary.Text),
                 Released = chkReleased.Checked,
                 DepartmentId = (cboDepartment.SelectedItem as Department).Id,
@@ -134,9 +136,12 @@ namespace HumanResources
 
 
             if (chkReleased.Checked)
-                employee.ReleaseDate = dtpReleaseDate.Value;
+            {
+                var releaseDateWithoutTime = new DateTime(dtpReleaseDate.Value.Year, dtpReleaseDate.Value.Month, dtpReleaseDate.Value.Day);
+                employee.ReleaseDate = releaseDateWithoutTime;
+            }
             else
-                employee.ReleaseDate = new DateTime(1, 1, 1);
+                employee.ReleaseDate = null;
 
             employees.Add(employee);
             _fileHelper.SerializeToFile(employees);

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HumanResources.Model;
+using HumanResources.Properties;
 
 
 // program kadrowy
@@ -25,10 +26,28 @@ namespace HumanResources
 
         public int AddEditStudent_FormClosing { get; private set; }
 
+        public bool isMaximize
+        {
+            get
+            {
+                return Settings.Default.isMaximize;
+            }
+            set
+            {
+                Settings.Default.isMaximize = value;
+            }
+        }
+
         public EmployeesFile()
         {
             InitializeComponent();
             Text = "";
+            
+            if (isMaximize)
+            {
+                WindowState = FormWindowState.Maximized;
+            }
+
 
             var ListOfDepartments = new List<Department>();
             ListOfDepartments.Add(new Department { Id = -1, Name = "All" });
@@ -48,8 +67,9 @@ namespace HumanResources
             cboDepartment.SelectedIndex = 0;
 
 
-            PopulateEmployee();
+            // PopulateEmployee();
             RefreshList();
+
             SetDgvProperities();
             SetDgvColumnHeader();
 
@@ -86,24 +106,16 @@ namespace HumanResources
             
             dgvEmployees.Columns[9].Visible = false;
 
-
+            dgvEmployees.Columns[nameof(Employee.Id)].DefaultCellStyle.Font = new Font("Courier New", 14, FontStyle.Bold, GraphicsUnit.Pixel);
             dgvEmployees.Columns[nameof(Employee.FirstName)].DefaultCellStyle.Font = new Font("Arial", 14, FontStyle.Bold, GraphicsUnit.Pixel);
             dgvEmployees.Columns[nameof(Employee.LastName)].DefaultCellStyle.Font = new Font("Arial", 14, FontStyle.Bold, GraphicsUnit.Pixel);
-            dgvEmployees.Columns[nameof(Employee.Number)].DefaultCellStyle.Font = new Font("Arial", 14, FontStyle.Bold, GraphicsUnit.Pixel);
+            dgvEmployees.Columns[nameof(Employee.Number)].DefaultCellStyle.Font = new Font("Courier New", 14, FontStyle.Bold, GraphicsUnit.Pixel);
+            dgvEmployees.Columns[nameof(Employee.HireDate)].DefaultCellStyle.Font = new Font("Arial", 14, FontStyle.Bold, GraphicsUnit.Pixel);
+            dgvEmployees.Columns[nameof(Employee.ReleaseDate)].DefaultCellStyle.Font = new Font("Arial", 14, FontStyle.Bold, GraphicsUnit.Pixel);
+            dgvEmployees.Columns[nameof(Employee.Salary)].DefaultCellStyle.Font = new Font("Arial", 14, FontStyle.Bold, GraphicsUnit.Pixel);
 
-            /*
-            dgvEmployees.Columns[0].HeaderText = "Id";
-            dgvEmployees.Columns[1].HeaderText = "Numer";
-            dgvEmployees.Columns[2].HeaderText = "Imię";
-            dgvEmployees.Columns[3].HeaderText = "Nazwisko";
-            dgvEmployees.Columns[4].HeaderText = "Data Zatrudnienia";
-            dgvEmployees.Columns[5].HeaderText = "Wynagrodzenie";
-            dgvEmployees.Columns[6].HeaderText = "Zwolniony";
-            dgvEmployees.Columns[7]
-            dgvEmployees.Columns[8]
-            */
-
-
+            dgvEmployees.Rows[1].DefaultCellStyle.BackColor = Color.Red;
+                   
         }
 
         /// <summary>
@@ -246,6 +258,25 @@ namespace HumanResources
         private void dgvEmployees_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             Edit();
+        }
+
+        private void dgvEmployees_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)//zmiana koloru wierszy, ale pamietaj zeby najpierw wygenerowac to zdarzenie ROWPREPAINT i podpiąć do niego taką metodę
+        {
+            if (Convert.ToInt32(dgvEmployees.Rows[e.RowIndex].Cells[6].Value) > 0)
+            {
+                dgvEmployees.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Gray;
+                dgvEmployees.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
+            }
+        }
+
+        private void EmployeesFile_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (WindowState == FormWindowState.Maximized)
+                Settings.Default.isMaximize = true;
+            else
+                Settings.Default.isMaximize = false;
+
+            Settings.Default.Save();
         }
     }
 }

@@ -75,6 +75,7 @@ namespace HumanResources
             this.dgvEmployees.Size = new System.Drawing.Size(2362, 1185);
             this.dgvEmployees.TabIndex = 2;
             this.dgvEmployees.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmployees_CellContentClick);
+            this.dgvEmployees.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvEmployees_RowPrePaint);
             // 
             // chkReleased
             // 
@@ -126,6 +127,7 @@ namespace HumanResources
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "EmployeesFile";
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.EmployeesFile_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
