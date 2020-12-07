@@ -67,7 +67,7 @@ namespace HumanResources
             cboDepartment.SelectedIndex = 0;
 
 
-            // PopulateEmployee();
+            //PopulateEmployee();
             RefreshList();
 
             SetDgvProperities();
@@ -114,7 +114,7 @@ namespace HumanResources
             dgvEmployees.Columns[nameof(Employee.ReleaseDate)].DefaultCellStyle.Font = new Font("Arial", 14, FontStyle.Bold, GraphicsUnit.Pixel);
             dgvEmployees.Columns[nameof(Employee.Salary)].DefaultCellStyle.Font = new Font("Arial", 14, FontStyle.Bold, GraphicsUnit.Pixel);
 
-            dgvEmployees.Rows[1].DefaultCellStyle.BackColor = Color.Red;
+            //dgvEmployees.Rows[1].DefaultCellStyle.BackColor = Color.Red;
                    
         }
 
