@@ -12,7 +12,7 @@ namespace HumanResources.Model
         public string Number { get; set; }
         public DateTime HireDate { get; set; }
         public bool Released { get; set; }
-        public DateTime? ReleaseDate { get; set; }  // używamy typu nulowalnego aby móc zapisać null gdy pusta data
+        public DateTime? ReleaseDate { get; set; }  // używamy typu nulowalnego aby móc zapisać null gdy pusta data aaa
         public decimal Salary { get; set; }
         public int DepartmentId { get; set; }
         public string PathToPhoto { get; set; }
